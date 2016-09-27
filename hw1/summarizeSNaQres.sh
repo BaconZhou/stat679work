@@ -1,4 +1,5 @@
 echo analysis, h, CPUtime, Nruns, Nfail, fabs, frel, xabs, xrel, seed, under3460, under3450, under3440 > summary.csv
+
 for file in log/*.log
 do
     analysis=`grep rootname $file | cut -f 2 -d ':'`

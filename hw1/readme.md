@@ -1,65 +1,72 @@
-homework 1: SNaQ data
-=====================
+# Instruction
+--
 
-## background (may be skipped)
+Directory hw1 contains:
 
-SNaQ is a method to estimate the phylogenetic (~ genealogical) network
-that generated a set of molecular alignments.
-Given input data, SNaQ seeks the network that minimizes a **score**
-(negative log pseudo-likelihood).
-This score has a rough surface (often with local minima)
-and the space of networks is a complex space to explore.
-Therefore, each SNaQ analysis does **multiple runs**,
-then returns the best network across all the runs.
+- log/ : directory used for storing _*.log_ files.
+- out/ : directory used for storing _*.out_ files.
+- readme.md : Instruction.
+- normalizeFileNames.sh : Normalize file name. 
+- summaryizeSNaQres.sh : Generate summary table.
 
-Several SNaQ analyses were performed, always on the same input data,
-with varying values of tuning parameters. These parameters control
-how the search is done and when it is stopped. The goal of this study
-was to find a combination of tuning parameters that makes the analyses
-faster but as accurate, compared to the default parameters.
+Working directory: hw1
 
-## data files
+## normalizeFileNames.sh
 
-For each analysis, 2 files were created:
-`xxx.out` in the directory `out` (for the main output: best network)
-and `xxx.log` in the directory `log` (to record the parameter values and
-details on the individual runs of a single analysis).
-Here, `xxx` is an arbitrary name chosen by the analyst.
+Function doing for change files name.
 
+**Example** _timetest1\_snaq.log timetest01\_snaq.log_
 
-## exercises
+Used for loop and variable i to search the right file name, with
+pattern *timetest$1\_snaq.log*. "$" using for eval the value of i. 
 
-1. Create a shell script `normalizeFileNames.sh` to change all file names
-   `timetesty_snaq.log` to `timetest0y_snaq.log` where "y" is a digit between 1 and 9.
-   Similarly, change `timetesty_snaq.out` to `timetest0y_snaq.out`.
+Code snapshoot:
 
-2. Create a shell script `summarizeSNaQres.sh` to start a summary of the results
-   from all these analyses. The script should produce a table in `csv` format,
-   with 1 row per analysis and 3 columns:
+```shell
+for i in {1..9}
+do
+    mv log/timetest$i\_snaq.log log/timetest0$i\_snaq.log
+    mv out/timetest$i\_snaq.out out/timetest0$i\_snaq.out
+done
+```
 
-   - "analysis": the file name root ("xxx")
-   - "h": the maximum number of hybridizations allowed during the analysis: `hmax`
-   - "CPUtime": total CPU time, or "Elapsed time".
+## summaryizeSnaQres.sh
 
-   Hint: start with a single command to extract one piece only (like h) for
-   a single analysis. Then wrap it in a loop to apply this command to all
-   analyses.
+Script using for summarize all data file from **log/** and the
+corresponding **out/**.
 
-3. Create a script to summarize the results with more information.
-   The script should produce a table in `csv` format with 1 row per analysis,
-   the same columns as before and additional columns for:
+Summmary contain:
+ - analysis: file name
+ - h: the maximum number of hybridizations
+ - CPUtime: total CPU time
+ - Nruns: number of runs
+ - Nfail: tuning parameter
+ - ...
 
-   - Nruns: number of runs
-   - Nfail: tuning parameter, "max number of failed proposals"
-   - fabs: tuning parameter called "ftolAbs" in the log file (tolerated
-     difference in the absolute value of the score function, to stop the search)
-   - frel: "ftolRel"
-   - xabs: "xtolAbs"
-   - xrel: "xtolRel"
-   - seed: main seed, i.e. seed for the first runs
-   - under3460: number of runs that returned a network with a score better than
-     (below) 3460
-   - under3450: number of runs with a network score under 3450
-   - under3440: number of runs with a network score under 3440
+**Example**
 
-   <!-- - aveCPUtime: average CPU time per run: CPUtime / Nruns -->
+| analysis        | h | CPUtime          | Nruns | Nfail | fabs   | frel   | xabs   | xrel  | seed  | under3460 | under3450 | under3440 |
+|-----------------|---|------------------|-------|-------|--------|--------|--------|-------|-------|-----------|-----------|-----------|
+| bT1             | 0 | 103354.760381735 | 10    | 100   | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 66077 | 0         | 0         | 0         |
+| net1_snaq       | 1 | 11648.984309726  | 10    | 100   | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 3322  | 1         | 1         | 1         |
+| newtry1         | 1 | 88579.306341032  | 10    | 100   | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 36252 | 4         | 4         | 2         |
+| temtest1_snaq   | 1 | 16688.01510346   | 10    | 10    | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 30312 | 2         | 1         | 0         |
+| temtest2_snaq   | 1 | 37137.96354747   | 10    | 25    | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 28669 | 4         | 1         | 0         |
+| timetest3_snaq  | 1 | 12630.994448551  | 10    | 100   | 0.1    | 0.1    | 0.0001 | 0.001 | 66086 | 0         | 0         | 0         |
+| timetest4_snaq  | 1 | 21942.346502542  | 10    | 100   | 0.01   | 0.01   | 0.0001 | 0.001 | 62366 | 0         | 0         | 0         |
+| timetest5_snaq  | 1 | 23949.375026384  | 10    | 100   | 0.005  | 0.005  | 0.0001 | 0.001 | 3888  | 2         | 1         | 0         |
+| timetest6_snaq  | 1 | 39287.796202476  | 10    | 25    | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 14351 | 4         | 4         | 3         |
+| timetest7_snaq  | 1 | 29822.147601027  | 10    | 100   | 0.005  | 0.005  | 0.0001 | 0.001 | 14351 | 5         | 5         | 0         |
+| timetest8_snaq  | 1 | 51589.342317181  | 10    | 100   | 1.0e-6 | 1.0e-5 | 0.001  | 0.1   | 15989 | 3         | 2         | 1         |
+| timetest9_snaq  | 1 | 34831.465925074  | 10    | 50    | 0.0001 | 1.0e-5 | 0.0001 | 0.001 | 45123 | 1         | 1         | 0         |
+| timetest10_snaq | 1 | 29394.463493788  | 10    | 50    | 1.0e-5 | 0.0001 | 0.0001 | 0.001 | 37792 | 0         | 0         | 0         |
+| timetest11_snaq | 1 | 67926.502059791  | 10    | 50    | 5.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 25765 | 2         | 2         | 0         |
+| timetest12_snaq | 1 | 18935.630572383  | 10    | 50    | 1.0e-6 | 1.0e-5 | 0.01   | 0.1   | 39416 | 4         | 0         | 0         |
+| timetest13_snaq | 1 | 31456.993676184  | 10    | 100   | 1.0e-5 | 1.0e-5 | 0.01   | 0.1   | 38112 | 3         | 1         | 1         |
+
+Instruction: 
+- In for loop, use file to denote the file in log/
+- "file" in loop contain .log extension,
+- "outname" changed the file name extension and relative path
+- "CPUtime" use '##*: 'to cut string before *, and '%% seconds*' after string
+- "Nfail" use `cut` function to cut the rigth string based on punctuation 
