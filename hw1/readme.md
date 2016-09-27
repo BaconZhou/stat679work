@@ -1,5 +1,5 @@
 # Instruction
---
+-
 
 Directory hw1 contains:
 
@@ -8,7 +8,7 @@ Directory hw1 contains:
 - readme.md : Instruction.
 - normalizeFileNames.sh : Normalize file name. 
 - summaryizeSNaQres.sh : Generate summary table.
-
+- summary.csv : csv file for all summary.
 Working directory: hw1
 
 ## normalizeFileNames.sh
