@@ -77,10 +77,9 @@ echo analysis, h, CPUtime, Nruns, Nfail, fabs, frel, xabs, xrel, seed, under3460
 
 for file in log/*.log
 do
-    analysis=`grep rootname $file | cut -f 2 -d ':'`
-    outname="${file%.*}.out"
+    analysis=`grep rootname $file | cut -f 2 -d ':'` # Cut string by second ":" sign
+    outname="${file%.*}.out" # Change file name with *.out extension to match the file in out directory
     outname="out/${outname##*/}"
-    echo $outname
     h=`grep hmax $file | head -n 1 | cut -f 2 -d '=' | cut -f1 -d,`
     CPUtime=`grep Elapsed\ time "${outname}"`
     CPUtime=${CPUtime##*:}
