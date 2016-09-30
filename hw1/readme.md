@@ -2,12 +2,15 @@
 
 Directory hw1 contains:
 
-- log/ : directory used for storing _*.log_ files.
-- out/ : directory used for storing _*.out_ files.
-- readme.md : Instruction.
-- normalizeFileNames.sh : Normalize file name. 
-- summaryizeSNaQres.sh : Generate summary table.
-- summary.csv : csv file for all summary.
+- `data/`
+  - `log/`: directory used for storing _*.log_ files.
+  - `out/` : directory used for storing _*.out_ files.
+  
+- `readme.md` : Instruction.
+- `scripts`
+  - `normalizeFileNames.sh` : Normalize file name. 
+  - `summaryizeSNaQres.sh` : Generate summary table.
+- `results/summary.csv` : csv file for all summary.
 
 Working directory: hw1
 
