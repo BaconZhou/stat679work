@@ -11,7 +11,7 @@ Directory hw1 contains:
   - **undoNormalizeFileNames.sh** : Undo normalized file names.
 - **results/summary.csv** : csv file for all summary.
 - **readme.md** : Instruction.
-- **makeFile** : Excute scripts.
+- **makeFile** : Execute scripts.
 
 Working directory: **hw1**
 
