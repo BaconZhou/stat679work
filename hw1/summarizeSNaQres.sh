@@ -5,7 +5,6 @@ do
     analysis=`grep rootname $file | cut -f 2 -d ':'`
     outname="${file%.*}.out"
     outname="out/${outname##*/}"
-    echo $outname
     h=`grep hmax $file | head -n 1 | cut -f 2 -d '=' | cut -f1 -d,`
     CPUtime=`grep Elapsed\ time "${outname}"`
     CPUtime=${CPUtime##*:}
