@@ -2,17 +2,35 @@
 
 Directory hw1 contains:
 
-- `data/`
-  - `log/`: directory used for storing _*.log_ files.
-  - `out/` : directory used for storing _*.out_ files.
-- `scripts`
-  - `normalizeFileNames.sh` : Normalize file name. 
-  - `summaryizeSNaQres.sh` : Generate summary table.
-- `results/summary.csv` : csv file for all summary.
-- `readme.md` : Instruction.
-- `makeFile` : Excute scripts.
+- **data/**
+  - **log/**: directory used for storing _*.log_ files.
+  - **out/** : directory used for storing _*.out_ files.
+- **scripts**
+  - **normalizeFileNames.sh** : Normalize file names. 
+  - **summaryizeSNaQres.sh** : Generate summary table.
+  - **undoNormalizeFileNames.sh** : Undo normalized file names.
+- **results/summary.csv** : csv file for all summary.
+- **readme.md** : Instruction.
+- **makeFile** : Excute scripts.
 
-Working directory: hw1
+Working directory: **hw1**
+
+## makefile
+
+Instruction:
+- `make filename`: nomalized filename
+- `make summary`: generate summary table
+- `make clean`: undo what you have done
+
+```make
+filename:
+	cd scripts;sh normalizeFileNames.sh
+summary: 
+	cd scripts;sh summarizeSNaQres.sh
+clean:
+	cd scripts;sh undoNormalizeFileNames.sh
+	rm -f results/summary.csv
+```
 
 ## normalizeFileNames.sh
 
@@ -91,5 +109,15 @@ do
     CPUtime=${CPUtime%% seconds*}
 
     echo $analysis, $h, $CPUtime >> ../results/summary.csv
+done
+```
+
+## undoNormalizeFileNames.sh
+
+```shell
+for i in {1..9}
+do
+    mv ../data/log/timetest0$i\_snaq.log ../data/log/timetest$i\_snaq.log
+    mv ../data/out/timetest0$i\_snaq.out ../data/out/timetest$i\_snaq.out
 done
 ```
