@@ -5,12 +5,12 @@ Directory hw1 contains:
 - `data/`
   - `log/`: directory used for storing _*.log_ files.
   - `out/` : directory used for storing _*.out_ files.
-  
-- `readme.md` : Instruction.
 - `scripts`
   - `normalizeFileNames.sh` : Normalize file name. 
   - `summaryizeSNaQres.sh` : Generate summary table.
 - `results/summary.csv` : csv file for all summary.
+- `readme.md` : Instruction.
+- `makeFile` : Excute scripts.
 
 Working directory: hw1
 
@@ -26,6 +26,7 @@ pattern *timetest$1\_snaq.log*. "$" using for eval the value of i.
 Code snapshoot:
 
 ```shell
+cd ../data/
 for i in {1..9}
 do
     mv log/timetest$i\_snaq.log log/timetest0$i\_snaq.log
@@ -42,37 +43,19 @@ Summmary contain:
  - analysis: file name
  - h: the maximum number of hybridizations
  - CPUtime: total CPU time
- - Nruns: number of runs
- - Nfail: tuning parameter
- - ...
+ - ~~Nruns: number of runs~~
+ - ~~Nfail: tuning parameter~~
+ - ~~...~~
 
 **Example**
 
-| analysis        | h | CPUtime          | Nruns | Nfail | fabs   | frel   | xabs   | xrel  | seed  | under3460 | under3450 | under3440 |
-|-----------------|---|------------------|-------|-------|--------|--------|--------|-------|-------|-----------|-----------|-----------|
-| bT1             | 0 | 103354.760381735 | 10    | 100   | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 66077 | 0         | 0         | 0         |
-| net1_snaq       | 1 | 11648.984309726  | 10    | 100   | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 3322  | 1         | 1         | 1         |
-| newtry1         | 1 | 88579.306341032  | 10    | 100   | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 36252 | 4         | 4         | 2         |
-| temtest1_snaq   | 1 | 16688.01510346   | 10    | 10    | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 30312 | 2         | 1         | 0         |
-| temtest2_snaq   | 1 | 37137.96354747   | 10    | 25    | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 28669 | 4         | 1         | 0         |
-| timetest3_snaq  | 1 | 12630.994448551  | 10    | 100   | 0.1    | 0.1    | 0.0001 | 0.001 | 66086 | 0         | 0         | 0         |
-| timetest4_snaq  | 1 | 21942.346502542  | 10    | 100   | 0.01   | 0.01   | 0.0001 | 0.001 | 62366 | 0         | 0         | 0         |
-| timetest5_snaq  | 1 | 23949.375026384  | 10    | 100   | 0.005  | 0.005  | 0.0001 | 0.001 | 3888  | 2         | 1         | 0         |
-| timetest6_snaq  | 1 | 39287.796202476  | 10    | 25    | 1.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 14351 | 4         | 4         | 3         |
-| timetest7_snaq  | 1 | 29822.147601027  | 10    | 100   | 0.005  | 0.005  | 0.0001 | 0.001 | 14351 | 5         | 5         | 0         |
-| timetest8_snaq  | 1 | 51589.342317181  | 10    | 100   | 1.0e-6 | 1.0e-5 | 0.001  | 0.1   | 15989 | 3         | 2         | 1         |
-| timetest9_snaq  | 1 | 34831.465925074  | 10    | 50    | 0.0001 | 1.0e-5 | 0.0001 | 0.001 | 45123 | 1         | 1         | 0         |
-| timetest10_snaq | 1 | 29394.463493788  | 10    | 50    | 1.0e-5 | 0.0001 | 0.0001 | 0.001 | 37792 | 0         | 0         | 0         |
-| timetest11_snaq | 1 | 67926.502059791  | 10    | 50    | 5.0e-6 | 1.0e-5 | 0.0001 | 0.001 | 25765 | 2         | 2         | 0         |
-| timetest12_snaq | 1 | 18935.630572383  | 10    | 50    | 1.0e-6 | 1.0e-5 | 0.01   | 0.1   | 39416 | 4         | 0         | 0         |
-| timetest13_snaq | 1 | 31456.993676184  | 10    | 100   | 1.0e-5 | 1.0e-5 | 0.01   | 0.1   | 38112 | 3         | 1         | 1         |
 
 Instruction: 
 - In for loop, use file to denote the file in log/
 - "file" in loop contain .log extension,
 - "outname" changed the file name extension and relative path
 - "CPUtime" use '##*: 'to cut string before *, and '%% seconds*' after string
-- "Nfail" use `cut` function to cut the rigth string based on punctuation 
+- ~~"Nfail" use `cut` function to cut the rigth string based on punctuation~~ 
 
 Code Snapshoot:
 
