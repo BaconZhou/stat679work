@@ -26,12 +26,12 @@ pattern *timetest$1\_snaq.log*. "$" using for eval the value of i.
 Code snapshoot:
 
 ```shell
-cd ../data/
 for i in {1..9}
 do
-    mv log/timetest$i\_snaq.log log/timetest0$i\_snaq.log
-    mv out/timetest$i\_snaq.out out/timetest0$i\_snaq.out
+    mv ../data/log/timetest$i\_snaq.log ../data/log/timetest0$i\_snaq.log
+    mv ../data/out/timetest$i\_snaq.out ../data/out/timetest0$i\_snaq.out
 done
+
 ```
 
 ## summaryizeSnaQres.sh
@@ -49,6 +49,24 @@ Summmary contain:
 
 **Example**
 
+| analysis        | h | CPUtime          |
+|-----------------|---|------------------|
+| bT1             | 0 | 103354.760381735 |
+| net1_snaq       | 1 | 11648.984309726  |
+| newtry1         | 1 | 88579.306341032  |
+| temtest1_snaq   | 1 | 16688.01510346   |
+| temtest2_snaq   | 1 | 37137.96354747   |
+| timetest3_snaq  | 1 | 12630.994448551  |
+| timetest4_snaq  | 1 | 21942.346502542  |
+| timetest5_snaq  | 1 | 23949.375026384  |
+| timetest6_snaq  | 1 | 39287.796202476  |
+| timetest7_snaq  | 1 | 29822.147601027  |
+| timetest8_snaq  | 1 | 51589.342317181  |
+| timetest9_snaq  | 1 | 34831.465925074  |
+| timetest10_snaq | 1 | 29394.463493788  |
+| timetest11_snaq | 1 | 67926.502059791  |
+| timetest12_snaq | 1 | 18935.630572383  |
+| timetest13_snaq | 1 | 31456.993676184  |
 
 Instruction: 
 - In for loop, use file to denote the file in log/
@@ -60,51 +78,18 @@ Instruction:
 Code Snapshoot:
 
 ```shell
-echo analysis, h, CPUtime, Nruns, Nfail, fabs, frel, xabs, xrel, seed, under3460, under3450, under3440 > summary.csv
+echo analysis, h, CPUtime > ../results/summary.csv
 
-for file in log/*.log
+for file in ../data/log/*.log
 do
-    analysis=`grep rootname $file | cut -f 2 -d ':'` # Cut string by second ":" sign
-    outname="${file%.*}.out" # Change file name with *.out extension to match the file in out directory
-    outname="out/${outname##*/}"
+    analysis=`grep rootname $file | cut -f 2 -d ':'`
+    outname="${file%.*}.out"
+    outname="../data/out/${outname##*/}"
     h=`grep hmax $file | head -n 1 | cut -f 2 -d '=' | cut -f1 -d,`
     CPUtime=`grep Elapsed\ time "${outname}"`
     CPUtime=${CPUtime##*:}
     CPUtime=${CPUtime%% seconds*}
 
-    Nruns=`grep runs $file | cut -f 2 -d ':'`
-    Nruns=${Nruns%% runs*}
-
-    Nfail=`grep "max number of failed proposals" $file | cut -f 2 -d "=" | cut -d "," -f 1`
-    fabs=`grep ftolAbs $file | cut -f 3 -d '=' | cut -f 1 -d ','` 
-    frel=`grep ftolRel $file | cut -f 2 -d '=' | cut -f 1 -d ','`
-    xabs=`grep xtolAbs $file | cut -f 2 -d '=' | cut -f 1 -d ','`
-    xrel=`grep xtolRel $file | cut -f 3 -d '=' | cut -d. -f1,2`
-    seed=`grep seed $file | head -n1 | cut -f3 -d " "`
-    loglik=`grep "loglik of best" $file |cut -f10 -d " "| cut -f1 -d.`
-    i1=0
-    i2=0
-    i3=0
-    for lik in $loglik
-    do
-	if [ $lik -le 3460 ]
-	then
-	    i1=$((i1+1))
-	fi
-
-	if [ $lik -le 3450 ]
-	then
-	    i2=$((i2+1))
-	fi
-
-	if [ $lik -le 3440 ]
-	then
-	    i3=$((i3+1))
-	fi
-
-    done
-
-    echo $analysis, $h, $CPUtime, $Nruns, $Nfail, $fabs, $frel, $xabs, $xrel, $seed, $i1, $i2, $i3>> summary.csv
+    echo $analysis, $h, $CPUtime >> ../results/summary.csv
 done
-
 ```

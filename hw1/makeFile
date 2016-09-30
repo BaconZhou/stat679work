@@ -1,0 +1,6 @@
+filename:
+	cd scripts;sh normalizeFileNames.sh
+summary: 
+	cd scripts;sh summarizeSNaQres.sh
+clean:
+	rm -f results/summary.csv
