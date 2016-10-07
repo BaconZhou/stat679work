@@ -1,4 +1,4 @@
-all: filename, summary, clean
+all: filename, summary
 filename:
 	cd scripts;sh normalizeFileNames.sh
 summary: 
