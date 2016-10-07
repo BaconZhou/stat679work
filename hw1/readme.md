@@ -43,15 +43,6 @@ pattern *timetest$1\_snaq.log*. "$" using for eval the value of i.
 
 Code snapshoot:
 
-~```shell
-for i in {1..9}
-do
-    mv ../data/log/timetest$i\_snaq.log ../data/log/timetest0$i\_snaq.log
-    mv ../data/out/timetest$i\_snaq.out ../data/out/timetest0$i\_snaq.out
-done
-
-```~
-
 ```shell
 for i in {1..9}
 do
@@ -105,19 +96,16 @@ Instruction:
 Code Snapshoot:
 
 ```shell
-echo analysis, h, CPUtime > ../results/summary.csv
+echo analysis,h,CPUtime > ../results/summary.csv
 
 for file in ../data/log/*.log
 do
-    analysis=`grep rootname $file | cut -f 2 -d ':'`
+    analysis=`grep rootname ${file} | grep -o [:/].* | grep -E "[[:alnum:]]\w+" -o`
     outname="${file%.*}.out"
     outname="../data/out/${outname##*/}"
-    h=`grep hmax $file | head -n 1 | cut -f 2 -d '=' | cut -f1 -d,`
-    CPUtime=`grep Elapsed\ time "${outname}"`
-    CPUtime=${CPUtime##*:}
-    CPUtime=${CPUtime%% seconds*}
-
-    echo $analysis, $h, $CPUtime >> ../results/summary.csv
+    h=`grep hmax ${file} | head -n 1|grep -E "\d" -o`
+    CPUtime=`grep -E "Elapsed time. \d+\.\d+" -o "${outname}"| grep -E "\d+\.\d+" -o`
+    echo $analysis,$h,$CPUtime>> ../results/summary.csv
 done
 ```
 
@@ -126,7 +114,7 @@ done
 ```shell
 for i in {1..9}
 do
-    mv ../data/log/timetest0$i\_snaq.log ../data/log/timetest$i\_snaq.log
-    mv ../data/out/timetest0$i\_snaq.out ../data/out/timetest$i\_snaq.out
+    mv ../data/log/timetest0${i}_snaq.log ../data/log/timetest${i}_snaq.log
+    mv ../data/out/timetest0${i}_snaq.out ../data/out/timetest${i}_snaq.out
 done
 ```
