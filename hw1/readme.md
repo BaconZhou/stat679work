@@ -4,8 +4,8 @@
 
 **Updata:**
 
-	- **summaryizeSNaQres.sh** : Given more summary from log files.
-	- **results/summary.csv** : csv file for more summary.
+- **summaryizeSNaQres.sh** : Given more summary from log files.
+- **results/summary.csv** : csv file for more summary.
 
 Working directory: **hw1**	
 
