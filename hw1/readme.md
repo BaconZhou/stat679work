@@ -3,6 +3,7 @@
 ## Updata Exercise 3
 
 **Updata:**
+
 	- **summaryizeSNaQres.sh** : Given more summary from log files.
 	- **results/summary.csv** : csv file for more summary.
 
