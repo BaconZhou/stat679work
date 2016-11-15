@@ -15,13 +15,13 @@
 
 ## Usage 
 
-Can be called by commend line:   
+Can be called by command line:   
 
 ```shell
 python data.py filepath1 filepath2 outputpath
 ```
 
-If doesn't give output path, script will print the result to stdout
+If missing output path, script will print the results to **STDOUT**
 
 ```shell
 python data.py waterTemperature.csv energy.csv output.csv
