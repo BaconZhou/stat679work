@@ -5,12 +5,23 @@
 - python 3.5
 - python 2.7
 
-## Main script:
+## Directory hw2 contains::
 
-- data.py
+- data/
+	- waterTemperature.csv
+	- energy.csv
+- script/data.py # main scripts for merge data
+- results/test.csv # results
 
-Usage from commend line:   
-If didn't give output filename like second commend, will print the result to screen
+## Usage 
+
+Can be called by commend line:   
+
+```shell
+python data.py filepath1 filepath2 outputpath
+```
+
+If doesn't give output path, script will print the result to stdout
 
 ```shell
 python data.py waterTemperature.csv energy.csv output.csv
@@ -18,7 +29,7 @@ python3 data.py waterTemperature.csv energy.csv
 ```
 ## Assumptions:
 
-The script make assumption: 
+The `data.py` make following assumptions: 
 
 - Temperature file date is already sorted (can add this feature in future)
 - Format of temperature file strictly follows: ["#","Date Time, GMT-05:00","K-Type"]
@@ -26,11 +37,11 @@ The script make assumption:
 
 ## Output result
 
-[test.csv](https://github.com/BaconZhou/stat679work/blob/master/hw2/test.csv)
+[test.csv](https://github.com/BaconZhou/stat679work/blob/master/hw2/results/test.csv)
 
 | Plot Title: 10679014 jackson July29 |                      |                                                                   |        |
 |-------------------------------------|----------------------|-------------------------------------------------------------------|--------|
-| #                                   | Date Time, GMT-05:00 | K-Type, F (LGR S/N: 10679014, SEN S/N: 10679014, LBL: water pipe) |        |
+| #                                   | Date Time, GMT-05:00 | K-Type, F (LGR S/N: 10679014, SEN S/N: 10679014, LBL: water pipe) |    energy    |
 | 1                                   | 07/29/16 10:26:34 AM | 72.86                                                             |        |
 | 2                                   | 07/29/16 11:26:34 AM | 73.92                                                             |        |
 | 3                                   | 07/29/16 12:26:34 PM | 73.98                                                             |        |
